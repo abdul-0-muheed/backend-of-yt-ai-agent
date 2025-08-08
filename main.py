@@ -62,7 +62,7 @@ async def async_handle_youtube_link(reader, participant_identity, session):
     print(f"Received YouTube link from {participant_identity}: {link}")
     try:
         await session.generate_reply(
-            instructions="my video is processing so we can make some fun chat until it done"
+            instructions="my video is processing so we can make some fun chat in malayalam until it done"
         )
         loop = asyncio.get_event_loop()
         transcript_text = await loop.run_in_executor(
