@@ -13,6 +13,9 @@ import time
 
 load_dotenv()
 
+print("LIVEKIT_URL =", os.getenv("LIVEKIT_URL"))
+print("GLADIA_API_KEY exists =", bool(os.getenv("GLADIA_API_KEY")))
+
 
 GLADIA_API_KEY = os.getenv("GLADIA_API_KEY")
 endpoint = "https://api.assemblyai.com/v2/transcript"
@@ -123,11 +126,13 @@ async def entrypoint(ctx: agents.JobContext):
 
 
 if __name__ == "__main__":
-    try:
-        agents.cli.run_app(agents.WorkerOptions(entrypoint_fnc=entrypoint))
-    except Exception as e:
-        print(f"Worker stopped with error: {e}")
-        # Keep alive so container doesn't exit immediately
-        import time
-        while True:
-            time.sleep(60)
+    import time
+    while True:
+        try:
+            print("Starting LiveKit YouTube Agent...")
+            agents.cli.run_app(agents.WorkerOptions(entrypoint_fnc=entrypoint))
+        except Exception as e:
+            print(f"Worker stopped: {e}")
+        print("Retrying in 5 seconds...")
+        time.sleep(5)
+
