@@ -1,0 +1,12 @@
+name: malayalam-youtube-explainer
+type: container
+image: python:3.11-slim-bullseye
+ports:
+  - 5000:5000
+command:
+  - python
+  - main.py
+resources:
+  limits:
+    memory: 512Mi # Increased memory limit for Langchain
+    cpu: 250m  # Increased cpu limit for Langchain
