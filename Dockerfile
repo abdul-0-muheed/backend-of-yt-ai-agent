@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the code
 COPY . .
 RUN mkdir -p /home/appuser/.cache
-RUN uv sync --locked
+# RUN uv sync --locked
 # Expose port (if your app uses one, e.g., Flask/FastAPI)
 EXPOSE 8081
 
