@@ -119,7 +119,7 @@ async def entrypoint(ctx: agents.JobContext):
         )
     else:
         await session.generate_reply(
-            instructions="Greet frist in malayalam language then ask user to enter the link of video so i can assit "
+            instructions="Greet frist in and only malayalam language then ask user to enter the link in the input box not in chat of video so i can assit "
         )   
 
 
