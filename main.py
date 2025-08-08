@@ -13,9 +13,6 @@ import time
 
 load_dotenv()
 
-print("LIVEKIT_URL =", os.getenv("LIVEKIT_URL"))
-print("GLADIA_API_KEY exists =", bool(os.getenv("GLADIA_API_KEY")))
-
 
 GLADIA_API_KEY = os.getenv("GLADIA_API_KEY")
 endpoint = "https://api.assemblyai.com/v2/transcript"
@@ -24,7 +21,7 @@ last_youtube_participant = None
 
 class Assistant(Agent):
     def __init__(self) -> None:
-        super().__init__(instructions="You are a helpful youtube video explinaer")
+        super().__init__(instructions="You are a helpful youtube video explinaer in malayalam language")
 
 
 _active_tasks = set()
@@ -65,13 +62,14 @@ async def async_handle_youtube_link(reader, participant_identity, session):
     print(f"Received YouTube link from {participant_identity}: {link}")
     try:
         await session.generate_reply(
-            instructions="say to me your video is processing so request me can we make some fun chat until it done"
+            instructions="my video is processing so we can make some fun chat until it done"
         )
         loop = asyncio.get_event_loop()
         transcript_text = await loop.run_in_executor(
             None, transcribe_youtube_video, link
         )
         print(transcript_text)
+        # This message will be sent as soon as the transcript is ready,
         # regardless of what the user said in between.
         instructions = f"Use this transcript: {transcript_text}"
         session.llm.instructions = instructions
@@ -94,7 +92,7 @@ async def entrypoint(ctx: agents.JobContext):
         model="gemini-2.0-flash-exp",
         voice="Puck",
         temperature=0.8,
-        instructions="You are a helpful youtube video explinaer",
+        instructions="You are a helpful youtube video explinaer in malayalam language",
     ),
     )
     ctx.room.register_text_stream_handler("youtube-link",lambda reader, participant_identity: handle_youtube_link(reader, participant_identity, session))
@@ -121,7 +119,7 @@ async def entrypoint(ctx: agents.JobContext):
         )
     else:
         await session.generate_reply(
-            instructions="Greet frist the ask user to enter the link of video so i can assit"
+            instructions="Greet frist in malayalam language then ask user to enter the link of video so i can assit "
         )   
 
 
