@@ -123,4 +123,11 @@ async def entrypoint(ctx: agents.JobContext):
 
 
 if __name__ == "__main__":
-    agents.cli.run_app(agents.WorkerOptions(entrypoint_fnc=entrypoint))
+    try:
+        agents.cli.run_app(agents.WorkerOptions(entrypoint_fnc=entrypoint))
+    except Exception as e:
+        print(f"Worker stopped with error: {e}")
+        # Keep alive so container doesn't exit immediately
+        import time
+        while True:
+            time.sleep(60)
