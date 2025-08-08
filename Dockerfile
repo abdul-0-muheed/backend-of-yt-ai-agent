@@ -21,4 +21,4 @@ COPY . .
 # ENV PYTHONUNBUFFERED=1
 
 # Run the application
-CMD ["python", "main.py"]
+CMD ["python", "main.py","dev"]
