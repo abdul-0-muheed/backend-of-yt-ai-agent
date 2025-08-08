@@ -1,5 +1,5 @@
 # Use official Python image
-# FROM python:3.11-slim
+FROM python:3.11-slim
 
 # Set work directory
 WORKDIR /
@@ -15,10 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose port if your app listens on a port (optional, for web apps)
-# EXPOSE 8000
-
-# Set environment variables (optional, for production best practice)
-# ENV PYTHONUNBUFFERED=1
+EXPOSE 5000
 
 # Run the application
-CMD ["python", "main.py","dev"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
